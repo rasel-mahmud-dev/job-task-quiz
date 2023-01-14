@@ -22,14 +22,20 @@ const ProgressBar = ({score, totalQuestion, wrongScore}) => {
     return (
         <div className="progressbar-root">
 
-            <div className="score-bar">
-                <span className="progressbar correct-score--progressbar" style={{width: calcWidth("correct")}}></span>
+            <div className="score-root">
+                <div className="score-bar">
+                    <span className="progressbar correct-score--progressbar" style={{width: calcWidth("correct")}}></span>
+                </div>
+                <h5>{score}/{totalQuestion}</h5>
             </div>
 
             <div className="score-percent">{scopePercent}%</div>
 
-            <div className="score-bar">
-                <span className="progressbar wrong-score--progressbar" style={{width: calcWidth()}}></span>
+            <div className="score-root">
+                <div className="score-bar">
+                    <span className="progressbar wrong-score--progressbar" style={{width: calcWidth()}}></span>
+                </div>
+                <h5>{wrongScore}/{totalQuestion}</h5>
             </div>
         </div>
     );

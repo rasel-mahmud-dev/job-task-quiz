@@ -2,8 +2,12 @@
     display: grid;
     grid-template-columns: 1fr 80px 1fr;
     column-gap: 20px;
-    align-items: center;
+    align-items: flex-end;
     margin-bottom: 20px;
+}
+
+.score-root h5{
+    margin: 5px 0 0 0
 }
 
 .score-bar{
@@ -37,8 +41,8 @@
 
 
 .score-percent{
-    width: 80px;
-    height: 80px;
+    width: 60px;
+    height: 60px;
     background: #212121;
     border-radius: 70px;
     display: flex;
