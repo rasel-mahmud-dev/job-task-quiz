@@ -12,9 +12,13 @@ body {
   min-height: 100vh;
 }
 
-.app {
-  background-color: #252d4a;
+.container{
   width: 450px;
+  margin: auto;
+}
+
+.question-card {
+  background-color: #252d4a;
   min-height: 200px;
   height: min-content;
   border-radius: 15px;
@@ -25,9 +29,7 @@ body {
 }
 
 .score-section {
-  display: flex;
   font-size: 24px;
-  align-items: center;
 }
 
 /* QUESTION/TIMER/LEFT SECTION */

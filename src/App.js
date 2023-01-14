@@ -1,5 +1,6 @@
 import {useState} from "react";
 import "./App.css";
+import ProgressBar from "./components/ProgressBar/ProgressBar";
 
 const questions = [
     {
@@ -42,55 +43,81 @@ const questions = [
 ];
 
 function App() {
-    const [showScore, setShowScore] = useState(false);
-    const [score, setScore] = useState(0);
-    const [currentQuestion, setCurrentQuestion] = useState(0);
+
+    const [state, setState] = useState({
+        score: 0,
+        wrongScore: 0,
+        currentQuestion: 0,
+        showScore: false,
+    })
+
+
 
 
     function handleAnswer(isCorrect) {
+        let updateState = {...state}
         if (isCorrect) {
-            setScore(score + 1);
+            updateState.score += 1
+        } else {
+            updateState.wrongScore = updateState.wrongScore + 1
         }
 
-        const nextQuestion = currentQuestion + 1;
+        const nextQuestion = updateState.currentQuestion + 1;
         if (nextQuestion < questions.length) {
-            setCurrentQuestion(nextQuestion);
+            updateState.currentQuestion = nextQuestion
         } else {
-            setShowScore(true);
+            updateState.showScore = true
         }
+
+        setState(updateState)
     }
 
-    return (
-        <div className="app">
-            {showScore ? (
-                <div className="score-section">
-                    Você pontuou {score} de {questions.length}
-                </div>
-            ) : (
-                <>
-                    <div className="question-section">
-                        <div className="question-count">
-                            <span>Questão {currentQuestion + 1}</span>/{questions.length}
-                        </div>
-                        <div className="question-text">
-                            {questions[currentQuestion].questionText}
-                        </div>
-                    </div>
 
-                    <div className="answer-section">
-                        {questions[currentQuestion].answerOptions.map(
-                            (answerOption, index) => (
-                                <button
-                                    onClick={() => handleAnswer(answerOption.isCorrect)}
-                                    key={index}
-                                >
-                                    {answerOption.answerText}
-                                </button>
-                            )
-                        )}
+    return (
+        <div className="container">
+            <ProgressBar
+                score={state.score}
+                wrongScore={state.wrongScore}
+                totalQuestion={questions.length}
+
+            />
+
+            <div className="question-card">
+                {state.showScore ? (
+                    <div className="score-section">
+                        <h4>
+                            Você pontuou {state.score} de {questions.length}
+                        </h4>
+                        <h4>
+                            Wrong {state.wrongScore} of {questions.length}
+                        </h4>
                     </div>
-                </>
-            )}
+                ) : (
+                    <>
+                        <div className="question-section">
+                            <div className="question-count">
+                                <span>Questão {state.currentQuestion + 1}</span>/{questions.length}
+                            </div>
+                            <div className="question-text">
+                                {questions[state.currentQuestion].questionText}
+                            </div>
+                        </div>
+
+                        <div className="answer-section">
+                            {questions[state.currentQuestion].answerOptions.map(
+                                (answerOption, index) => (
+                                    <button
+                                        onClick={() => handleAnswer(answerOption.isCorrect)}
+                                        key={index}
+                                    >
+                                        {answerOption.answerText}
+                                    </button>
+                                )
+                            )}
+                        </div>
+                    </>
+                )}
+            </div>
         </div>
     );
 }
